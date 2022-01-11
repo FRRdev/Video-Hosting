@@ -10,7 +10,7 @@ class ChannelView(MixedSerializer, viewsets.ModelViewSet):
     permission_classes = [IsAuthor]
     serializer_class = serializers.CreateChannelSerializer
     serializer_class_by_action = {
-        'list': serializers.CreateChannelSerializer
+        'list': serializers.ListChannelSerializer
     }
 
     def get_queryset(self):
@@ -21,5 +21,5 @@ class ChannelView(MixedSerializer, viewsets.ModelViewSet):
 
 
 class DetailChannelView(generics.RetrieveAPIView):
-    serializer_class = serializers.ChannelSerializer
+    serializer_class = serializers.ListChannelSerializer
     queryset = models.Channel.objects.all()

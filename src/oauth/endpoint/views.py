@@ -1,4 +1,5 @@
 from rest_framework import viewsets, parsers, permissions
+from rest_framework.permissions import IsAuthenticated
 
 from .. import serializers, models
 from ...base.permissions import IsAuthor
@@ -29,7 +30,7 @@ class SocialLinkView(viewsets.ModelViewSet):
     """CRUD ссылок соц сетей пользователя
     """
     serializer_class = serializers.SocialLinkSerializer
-    permission_classes = [IsAuthor]
+    permission_classes = [IsAuthor, IsAuthenticated]
 
     def get_queryset(self):
         return self.request.user.social_links.all()

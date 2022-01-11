@@ -10,6 +10,12 @@ class UserSerializer(serializers.ModelSerializer):
         model = models.AuthUser
         fields = ('avatar', 'country', 'city', 'bio', 'display_name')
 
+class UserSerializerShort(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.AuthUser
+        fields = ('id', 'email', 'display_name', 'social_links')
+
 
 class SocialLinkSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
