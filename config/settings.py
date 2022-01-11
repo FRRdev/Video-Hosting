@@ -32,6 +32,7 @@ INSTALLED_APPS = [
 
     'src.oauth',
     'src.video_library',
+    'src.channels'
 ]
 
 MIDDLEWARE = [
