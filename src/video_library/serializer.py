@@ -20,6 +20,14 @@ class LicenseSerializer(BaseSerializer):
         fields = ('id', 'text')
 
 
+class VideoSerializerForChannel(serializers.ModelSerializer):
+    genre = GenreSerializer(many=True)
+
+    class Meta:
+        model = models.Video
+        fields = ['id', 'title', 'genre', 'create_at', 'plays_count', 'download', 'private']
+
+
 class CreateAuthorVideoSerializer(BaseSerializer):
     plays_count = serializers.IntegerField(read_only=True)
     download = serializers.IntegerField(read_only=True)
@@ -41,6 +49,7 @@ class CreateAuthorVideoSerializer(BaseSerializer):
             'private',
             'cover',
             'user',
+            'channel',
             'user_of_likes',
             'likes_count'
         )
@@ -54,7 +63,6 @@ class CreateAuthorVideoSerializer(BaseSerializer):
 class AuthorVideoSerializer(CreateAuthorVideoSerializer):
     license = LicenseSerializer()
     genre = GenreSerializer(many=True)
-   # album = AlbumSerializer()
     user = AuthorSerializer()
 
 

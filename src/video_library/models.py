@@ -31,7 +31,7 @@ class Genre(models.Model):
 class Video(models.Model):
     """ Модель треков
     """
-    channel = models.ForeignKey(Channel, on_delete=models.CASCADE, related_name='videos_by_channel',default=1)
+    channel = models.ForeignKey(Channel, on_delete=models.CASCADE, related_name='videos_by_channel', default=1)
     user = models.ForeignKey(AuthUser, on_delete=models.CASCADE, related_name='videos')
     title = models.CharField(max_length=100)
     license = models.ForeignKey(License, on_delete=models.PROTECT, related_name='license_videos')
@@ -46,7 +46,7 @@ class Video(models.Model):
     plays_count = models.PositiveIntegerField(default=0)
     download = models.PositiveIntegerField(default=0)
     likes_count = models.PositiveIntegerField(default=0)
-    user_of_likes = models.ManyToManyField(AuthUser, related_name='likes_of_videos')
+    user_of_likes = models.ManyToManyField(AuthUser, related_name='likes_of_videos', null=True, blank=True)
     private = models.BooleanField(default=False)
     cover = models.ImageField(
         upload_to=get_path_upload_cover_video,
@@ -71,7 +71,7 @@ class Comment(models.Model):
 class PlayList(models.Model):
     """ Модель плейлистов пользователя
     """
-    channel = models.ForeignKey(Channel, on_delete=models.CASCADE, related_name='playlists_by_channel',default=1)
+    channel = models.ForeignKey(Channel, on_delete=models.CASCADE, related_name='playlists_by_channel', default=1)
     user = models.ForeignKey(AuthUser, on_delete=models.CASCADE, related_name='play_lists')
     title = models.CharField(max_length=50)
     videos = models.ManyToManyField(Video, related_name='video_play_lists')

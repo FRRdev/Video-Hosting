@@ -14,7 +14,8 @@ class ChannelView(MixedSerializer, viewsets.ModelViewSet):
     }
 
     def get_queryset(self):
-        return models.Channel.objects.filter(user=self.request.user)
+        return models.Channel.objects.filter(user=self.request.user).\
+            prefetch_related('subscribers')
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
