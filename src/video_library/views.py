@@ -4,6 +4,7 @@ from django.http import FileResponse, Http404, HttpResponse
 from rest_framework import generics, viewsets, parsers, views
 from rest_framework.generics import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
@@ -79,11 +80,12 @@ class PlayListView(MixedSerializer, viewsets.ModelViewSet):
 class TrackListView(generics.ListAPIView):
     """ Список всех видео
     """
-    queryset = models.Video.objects.filter(playlist__private=False, private=False)
+    queryset = models.Video.objects.filter(private=False)
     serializer_class = serializer.AuthorVideoSerializer
     pagination_class = Pagination
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['title', 'user__display_name', 'playlist__title', 'genre__name']
+    filter_backends = [SearchFilter, DjangoFilterBackend]
+    search_fields = ['title', ]
+    filterset_fields = ['user__display_name', 'playlist__title', 'genre__name']
 
 
 class AuthorTrackListView(generics.ListAPIView):

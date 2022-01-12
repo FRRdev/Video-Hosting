@@ -40,3 +40,17 @@ class SubscriberView(APIView):
             return Response(serializer.data)
         except models.Channel.DoesNotExist:
             return Response('Channel does not exists')
+
+    def post(self, request, pk):
+        try:
+            channel = models.Channel.objects.get(pk=pk)
+            sub = models.Subscriber.objects.filter(channel=pk, subscriber=request.user.pk)
+            if sub.exists():
+                sub.delete()
+                return Response('you are no a subscriber anymore')
+            else:
+                sub = models.Subscriber.objects.create(channel=channel, subscriber=request.user)
+                sub.save()
+                return Response('you are a subscriber')
+        except models.Channel.DoesNotExist:
+            return Response('Channel does not exists')

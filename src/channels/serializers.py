@@ -5,6 +5,7 @@ from src.oauth.serializers import AuthorSerializer, UserSerializerShort
 from src.video_library.serializer import VideoSerializerForChannel
 
 
+
 class SubscriberSerializer(serializers.ModelSerializer):
     """Сериализация подписчиков канала
     """
