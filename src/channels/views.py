@@ -9,6 +9,8 @@ from ..base.permissions import IsAuthor
 
 
 class ChannelView(MixedSerializer, viewsets.ModelViewSet):
+    """CRUD of Channel
+    """
     parser_classes = (parsers.MultiPartParser,)
     permission_classes = [IsAuthor]
     serializer_class = serializers.CreateChannelSerializer
@@ -25,11 +27,15 @@ class ChannelView(MixedSerializer, viewsets.ModelViewSet):
 
 
 class DetailChannelView(generics.RetrieveAPIView):
+    """View for retrieve channel
+    """
     serializer_class = serializers.DetailChannelSerializer
     queryset = models.Channel.objects.all()
 
 
 class SubscriberView(APIView):
+    """View to subscribe and unsubscribe to the channel
+    """
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, pk):

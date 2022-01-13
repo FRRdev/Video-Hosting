@@ -5,22 +5,30 @@ from ..oauth.serializers import AuthorSerializer
 
 
 class BaseSerializer(serializers.ModelSerializer):
+    """ Base serializer for id
+    """
     id = serializers.IntegerField(read_only=True)
 
 
 class GenreSerializer(BaseSerializer):
+    """ Serializer for video's genre
+    """
     class Meta:
         model = models.Genre
         fields = ('id', 'name')
 
 
 class LicenseSerializer(BaseSerializer):
+    """ Serializer for video's license
+    """
     class Meta:
         model = models.License
         fields = ('id', 'text')
 
 
 class VideoSerializerForChannel(serializers.ModelSerializer):
+    """ Serializer for video to
+    """
     genre = GenreSerializer(many=True)
 
     class Meta:
@@ -29,6 +37,8 @@ class VideoSerializerForChannel(serializers.ModelSerializer):
 
 
 class CreateAuthorVideoSerializer(BaseSerializer):
+    """ Serializer for creating video
+    """
     plays_count = serializers.IntegerField(read_only=True)
     download = serializers.IntegerField(read_only=True)
     user = AuthorSerializer(read_only=True)
@@ -61,12 +71,16 @@ class CreateAuthorVideoSerializer(BaseSerializer):
 
 
 class AuthorVideoSerializer(CreateAuthorVideoSerializer):
+    """ Serializer for author's video
+    """
     license = LicenseSerializer()
     genre = GenreSerializer(many=True)
     user = AuthorSerializer()
 
 
 class CreatePlayListSerializer(BaseSerializer):
+    """ Serializer for creating playlist
+    """
     class Meta:
         model = models.PlayList
         fields = ('id', 'title', 'cover', 'videos')
@@ -77,11 +91,13 @@ class CreatePlayListSerializer(BaseSerializer):
 
 
 class PlayListSerializer(CreatePlayListSerializer):
+    """ Serializer channel's playlist
+    """
     videos = AuthorVideoSerializer(many=True, read_only=True)
 
 
 class CommentAuthorSerializer(serializers.ModelSerializer):
-    """Сериализация комментариев
+    """ Serializer for comment
     """
 
     class Meta:
@@ -90,7 +106,7 @@ class CommentAuthorSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    """Сериализация комментариев
+    """ Serializer for comment(expended)
     """
     user = AuthorSerializer()
 

@@ -13,14 +13,14 @@ from src.channels.models import Channel
 
 
 class License(models.Model):
-    """ Модель лицензий видео пользователя
+    """ Model user's video license
     """
     user = models.ForeignKey(AuthUser, on_delete=models.CASCADE, related_name='licenses')
     text = models.TextField(max_length=1000)
 
 
 class Genre(models.Model):
-    """ Модель жанров видео
+    """ Model of video genre
     """
     name = models.CharField(max_length=25, unique=True)
 
@@ -29,7 +29,7 @@ class Genre(models.Model):
 
 
 class Video(models.Model):
-    """ Модель треков
+    """ Model of video
     """
     channel = models.ForeignKey(Channel, on_delete=models.CASCADE, related_name='videos_by_channel', default=1)
     user = models.ForeignKey(AuthUser, on_delete=models.CASCADE, related_name='videos')
@@ -60,7 +60,7 @@ class Video(models.Model):
 
 
 class Comment(models.Model):
-    """ Модель комментариев к треку
+    """ Model of video's comment
     """
     user = models.ForeignKey(AuthUser, on_delete=models.CASCADE, related_name='comments')
     video = models.ForeignKey(Video, on_delete=models.CASCADE, related_name='video_comments')
@@ -69,7 +69,7 @@ class Comment(models.Model):
 
 
 class PlayList(models.Model):
-    """ Модель плейлистов пользователя
+    """ Model of user's playlists
     """
     channel = models.ForeignKey(Channel, on_delete=models.CASCADE, related_name='playlists_by_channel', default=1)
     user = models.ForeignKey(AuthUser, on_delete=models.CASCADE, related_name='play_lists')

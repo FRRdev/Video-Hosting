@@ -3,36 +3,36 @@ import os
 
 
 def get_path_upload_avatar(instance, file):
-    """Построение пути к файлу,format: (media)/avatar/user_id/photo.jpg
+    """Building a file path,format: (media)/avatar/user_id/photo.jpg
     """
     return f'avatar/user_{instance.id}/{file}'
 
 
 def get_path_upload_cover_album(instance, file):
-    """Построение пути к файлу,format: (media)/album/user_id/photo.jpg
+    """Building a file path,format: (media)/album/user_id/photo.jpg
     """
     return f'album/user_{instance.user.id}/{file}'
 
 
 def get_path_upload_video(instance, file):
-    """Построение пути к файлу,format: (media)/video/user_id/photo.jpg
+    """Building a file path,format: (media)/video/user_id/photo.jpg
     """
     return f'video/user_{instance.user.id}/{file}'
 
 
 def get_path_upload_cover_playlist(instance, file):
-    """Построение пути к файлу,format: (media)/playlist/user_id/photo.jpg
+    """Building a file path,format: (media)/playlist/user_id/photo.jpg
     """
     return f'playlist/user_{instance.user.id}/{file}'
 
 def get_path_upload_cover_video(instance, file):
-    """Построение пути к файлу,format: (media)/video/cover/user_id/photo.jpg
+    """Building a file path,format: (media)/video/cover/user_id/photo.jpg
     """
     return f'video/cover/user_{instance.user.id}/{file}'
 
 
 def validate_size_image(file_obj):
-    """Проверка размера файла
+    """Check file size
     """
     megabyte_limit = 2
     if file_obj.size > megabyte_limit * 1024 * 1024:
@@ -40,7 +40,7 @@ def validate_size_image(file_obj):
 
 
 def delete_old_file(path_file):
-    """Удаление старого файла
+    """Removing old file
     """
     if os.path.exists(path_file):
         os.remove(path_file)

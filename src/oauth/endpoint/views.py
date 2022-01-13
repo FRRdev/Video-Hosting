@@ -6,7 +6,7 @@ from ...base.permissions import IsAuthor
 
 
 class UserView(viewsets.ModelViewSet):
-    """Просмотр и редактирование данных пользователя
+    """Viewing and editing user data
     """
     parser_classes = (parsers.MultiPartParser,)
     serializer_class = serializers.UserSerializer
@@ -20,14 +20,14 @@ class UserView(viewsets.ModelViewSet):
 
 
 class AuthorView(viewsets.ReadOnlyModelViewSet):
-    """Список авторов
+    """List of Authors
     """
     queryset = models.AuthUser.objects.all().prefetch_related('social_links')
     serializer_class = serializers.AuthorSerializer
 
 
 class SocialLinkView(viewsets.ModelViewSet):
-    """CRUD ссылок соц сетей пользователя
+    """CRUD user's social links
     """
     serializer_class = serializers.SocialLinkSerializer
     permission_classes = [IsAuthor, IsAuthenticated]

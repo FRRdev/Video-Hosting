@@ -16,13 +16,6 @@ class GenreAdmin(admin.ModelAdmin):
     list_display_links = ('name',)
 
 
-# @admin.register(models.Album)
-# class AlbumAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'user', 'name')
-#     list_display_links = ('user',)
-#     list_filter = ('user',)
-
-
 @admin.register(models.Video)
 class TrackAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'title', 'create_at')

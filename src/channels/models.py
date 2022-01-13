@@ -3,7 +3,7 @@ from src.oauth.models import AuthUser
 
 
 class Channel(models.Model):
-    """Модель Канала ползователя
+    """Model of User's channel
     """
     user = models.ForeignKey(AuthUser, on_delete=models.CASCADE, related_name='channels')
     name = models.CharField(max_length=100, unique=True)
@@ -15,7 +15,7 @@ class Channel(models.Model):
 
 
 class Subscriber(models.Model):
-    """Модель подписчиков на канал
+    """Model of channel's subscribers
     """
     channel = models.ForeignKey(Channel, on_delete=models.CASCADE, related_name='subscribers')
     subscriber = models.ForeignKey(AuthUser, on_delete=models.CASCADE, related_name='subscribed_channels')

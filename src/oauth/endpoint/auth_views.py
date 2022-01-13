@@ -8,20 +8,20 @@ from ..services import google, spotify
 
 
 def google_login(request):
-    """Страница входа через гугл
+    """Google login page
     """
     return render(request, 'oauth/google_login.html')
 
 
 def spotify_login(request):
-    """Страница входа через spotify
+    """Spotify login page
     """
     return render(request, 'oauth/spotify_login.html')
 
 
 @api_view(["POST"])
 def google_auth(request):
-    """Подтверждение авторизации через гугл
+    """Confirmation of authorization over Google
     """
     google_data = serializers.GoogleAuth(data=request.data)
     if google_data.is_valid():
@@ -33,7 +33,7 @@ def google_auth(request):
 
 @api_view(["GET"])
 def spotify_auth(request):
-    """Подтверждение авторизации через spotify
+    """Confirmation of authorization over Spotify
     """
     token = spotify.spotify_auth(request.query_params.get('code'))
     return Response(token)

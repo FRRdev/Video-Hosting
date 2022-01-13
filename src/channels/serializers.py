@@ -5,9 +5,8 @@ from src.oauth.serializers import AuthorSerializer, UserSerializerShort
 from src.video_library.serializer import VideoSerializerForChannel
 
 
-
 class SubscriberSerializer(serializers.ModelSerializer):
-    """Сериализация подписчиков канала
+    """Serializer of Channel's subscribers
     """
     subscriber = UserSerializerShort(read_only=True)
 
@@ -17,6 +16,8 @@ class SubscriberSerializer(serializers.ModelSerializer):
 
 
 class CreateChannelSerializer(serializers.ModelSerializer):
+    """Serializer for creating a Channel
+    """
     user = AuthorSerializer(read_only=True)
 
     class Meta:
@@ -29,9 +30,10 @@ class CreateChannelSerializer(serializers.ModelSerializer):
 
 
 class ListChannelSerializer(serializers.ModelSerializer):
+    """Serializer for list channels
+    """
     user = UserSerializerShort(read_only=True)
     subscribers = SubscriberSerializer(many=True)
-
 
     class Meta:
         model = models.Channel
@@ -44,5 +46,8 @@ class ListChannelSerializer(serializers.ModelSerializer):
             'videos_by_channel'
         )
 
+
 class DetailChannelSerializer(ListChannelSerializer):
+    """Serializer for retrieve channel
+    """
     videos_by_channel = VideoSerializerForChannel(many=True, read_only=True)

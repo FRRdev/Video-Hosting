@@ -15,14 +15,14 @@ from ..base.services import delete_old_file
 
 
 class GenreView(generics.ListAPIView):
-    """Список жанров
+    """List of video's genres
     """
     queryset = models.Genre.objects.all()
     serializer_class = serializer.GenreSerializer
 
 
 class LicenseView(viewsets.ModelViewSet):
-    """ CRUD лицензий автора
+    """ CRUD author's licenses
     """
     serializer_class = serializer.LicenseSerializer
     permission_classes = [IsAuthor]
@@ -34,8 +34,8 @@ class LicenseView(viewsets.ModelViewSet):
         serializer.save(user=self.request.user)
 
 
-class TrackView(MixedSerializer, viewsets.ModelViewSet):
-    """CRUD треков
+class VideoView(MixedSerializer, viewsets.ModelViewSet):
+    """CRUD Videos
     """
     parser_classes = (parsers.MultiPartParser,)
     permission_classes = [IsAuthor]
@@ -57,7 +57,7 @@ class TrackView(MixedSerializer, viewsets.ModelViewSet):
 
 
 class PlayListView(MixedSerializer, viewsets.ModelViewSet):
-    """CRUD плейлистов пользователя
+    """CRUD user's playlists
     """
     parser_classes = (parsers.MultiPartParser,)
     permission_classes = [IsAuthor]
@@ -77,8 +77,8 @@ class PlayListView(MixedSerializer, viewsets.ModelViewSet):
         instance.delete()
 
 
-class TrackListView(generics.ListAPIView):
-    """ Список всех видео
+class VideoListView(generics.ListAPIView):
+    """ List of videos
     """
     queryset = models.Video.objects.filter(private=False)
     serializer_class = serializer.AuthorVideoSerializer
@@ -88,8 +88,8 @@ class TrackListView(generics.ListAPIView):
     filterset_fields = ['user__display_name', 'playlist__title', 'genre__name']
 
 
-class AuthorTrackListView(generics.ListAPIView):
-    """ Список всех треков автора
+class AuthorVideoListView(generics.ListAPIView):
+    """ List of author's videos
     """
     serializer_class = serializer.AuthorVideoSerializer
     pagination_class = Pagination
@@ -103,7 +103,7 @@ class AuthorTrackListView(generics.ListAPIView):
 
 
 class CommentAuthorView(viewsets.ModelViewSet):
-    """ CRUD комментариев автора
+    """ CRUD author's comments
     """
     serializer_class = serializer.CommentAuthorSerializer
     permission_classes = [IsAuthor]
@@ -116,7 +116,7 @@ class CommentAuthorView(viewsets.ModelViewSet):
 
 
 class CommentView(viewsets.ModelViewSet):
-    """ Комментарии к треку
+    """ Video's comments
     """
     serializer_class = serializer.CommentSerializer
 
@@ -125,7 +125,7 @@ class CommentView(viewsets.ModelViewSet):
 
 
 class StreamingFileView(views.APIView):
-    """ Воспроизведение трека
+    """ Streaming of video
     """
 
     def set_play(self):
@@ -144,8 +144,8 @@ class StreamingFileView(views.APIView):
             return Http404
 
 
-class DownloadTrackView(views.APIView):
-    """ Скачивание трека
+class DownloadVideoView(views.APIView):
+    """ Download video
     """
 
     def set_download(self):
@@ -165,7 +165,7 @@ class DownloadTrackView(views.APIView):
 
 
 class StreamingFileAuthorView(views.APIView):
-    """ Воспроизведение трека автора
+    """ Streaming of author's video
     """
     permission_classes = [IsAuthor]
 
@@ -180,7 +180,7 @@ class StreamingFileAuthorView(views.APIView):
 
 
 class LikeView(views.APIView):
-    """ Добавление/удаление лайка к видео
+    """ Adding/removing like for video
     """
     permission_classes = [IsAuthenticated, ]
 
